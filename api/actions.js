@@ -82,13 +82,13 @@ actionRoute.put("/:id", isProj, validateAction, (req, res) => {
 actionRoute.delete("/:id", (req, res) => {
 	clg(req.params.id)
 	db.remove(req.params.id)
-		.then(projDel => {
-			res.status(200).json(`Removed ${projDel}`)
+		.then(actionDel => {
+			res.status(200).json(`Removed ${actionDel}`)
 		})
 		.catch(err => {
 			clg(err);
 			res.status(500).json({
-				msg: "Error READing one single proj.",
+				msg: "Error READing one single ACTION.",
 				err: error
 			});
 		});
