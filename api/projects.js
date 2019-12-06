@@ -39,6 +39,22 @@ projRoute.get("/:id", isProj, (req, res) => {
 		});
 });
 
+projRoute.get("/:id/actions", isProj, (req, res) => {
+	clg(req.params.id)
+	db.get(req.params.id)
+		.then(projsAll => {
+			clg(">>> GET actions of one proj", projsAll.actions);
+			res.status(200).json(projsAll.actions);
+		})
+		.catch(err => {
+			clg(err);
+			res.status(500).json({
+				msg: "Error READing actions of one proj.",
+				err: err
+			});
+		});
+});
+
 // CREATE proj
 projRoute.post("/", validateProj, (req, res) => {
 	db.insert(req.body)
