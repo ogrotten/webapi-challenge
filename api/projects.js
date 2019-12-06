@@ -9,7 +9,7 @@ function clg(...x) {
 projRoute.get("/", (req, res) => {
 	db.get()
 		.then(projs => {
-			clg(">>> GET PROJS all", projs);
+			// clg(">>> GET PROJS all", projs);
 			res.status(200).json(projs);
 		})
 		.catch(error => {
@@ -25,7 +25,7 @@ projRoute.get("/:id", (req, res) => {
 	clg(req.params.id)
 	db.get(req.params.id)
 		.then(projsAll => {
-			clg(">>> GET one proj", projsAll);
+			// clg(">>> GET one proj", projsAll);
 			Object.entries(projsAll).length !== 0
 				? res.status(200).json(projsAll)
 				: res.status(404).json({ msg: "Nonexistant Proj. (READ one)" })
@@ -43,7 +43,7 @@ projRoute.get("/:id", (req, res) => {
 projRoute.post("/", validateProj, (req, res) => {
 	db.insert(req.body)
 		.then(proj => {
-			clg(">>> POST new proj");
+			// clg(">>> POST new proj");
 			res.status(201).json(proj);
 		})
 		.catch(err => {
@@ -55,7 +55,76 @@ projRoute.post("/", validateProj, (req, res) => {
 		})
 });
 
+// UPDATE proj
+projRoute.put("/:id", isProj, validateProj, (req, res) => {
+	const id = req.params.id;
+	const body = req.body;
+	
+	clg("for update", id, body);
+	db.update(id, body)
+		.then(proj => {
+			clg(">>> POST new proj");
+			res.status(201).json(proj);
+		})
+		.catch(err => {
+			// clg(err);
+			res.status(500).json({
+				msg: "Error CREATEing new proj."
+				// err: err
+			})
+		})
+});
+
+// DELETE one proj
+projRoute.delete("/:id", (req, res) => {
+	clg(req.params.id)
+	db.remove(req.params.id)
+		.then(projDel => {
+			res.status(200).json(`Removed ${projDel}`)
+		})
+		.catch(err => {
+			clg(err);
+			res.status(500).json({
+				msg: "Error READing one single proj.",
+				err: error
+			});
+		});
+});
+
+
+
+function isProj(req, res, next) {
+	clg(">>> is it a Project?");
+	db.get(req.params.id)
+		.then(proj => {
+			clg(proj);
+			if (proj) {
+				req.proj = proj;
+				clg("> > > Yes it's a project.")
+				next();
+			} else {
+				clg("! ! ! No.")
+				res.status(404).json({
+					message: "invalid proj id",
+					loc: "projects.js > isProj()",
+					error: err
+				})
+			}
+		})
+		.catch(err => {
+			clg("! ! ! No.")
+			res.status(500).json({
+				message: "GET proj problem",
+				loc: "projects.js > isProj() > catch",
+				error: err
+			})
+		})
+	// next();
+}
+
 function validateProj(req, res, next) {
+	clg(">>> is it Valid?");
+
 	if (Object.keys(req.body).length === 0) {
 		res.status(400).json({
 			message: "need to fill out the fields",
@@ -74,6 +143,7 @@ function validateProj(req, res, next) {
 			loc: "projects.js > validateProj()",
 		})
 	}
+	clg("> > > Yes Valid Body")
 	next();
 }
 
