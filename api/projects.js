@@ -40,7 +40,7 @@ projRoute.get("/:id", (req, res) => {
 });
 
 // CREATE proj
-projRouter.post("/", (req, res) => {
+projRoute.post("/", validateProj, (req, res) => {
 	db.insert(req.body)
 		.then(proj => {
 			clg(">>> POST new proj");
@@ -54,6 +54,28 @@ projRouter.post("/", (req, res) => {
 			})
 		})
 });
+
+function validateProj(req, res, next) {
+	if (Object.keys(req.body).length === 0) {
+		res.status(400).json({
+			message: "need to fill out the fields",
+			loc: "projects.js > validateProj()",
+		})
+	}
+	if (!req.body.name) {
+		res.status(400).json({
+			message: "need name field",
+			loc: "projects.js > validateProj()",
+		})
+	}
+	if (!req.body.description) {
+		res.status(400).json({
+			message: "need description field",
+			loc: "projects.js > validateProj()",
+		})
+	}
+	next();
+}
 
 
 module.exports = projRoute;
