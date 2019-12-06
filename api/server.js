@@ -8,7 +8,7 @@ const server = express();
 server.use(express.json());
 
 server.get("/", (req, res) => {
-	res.send(`<h1>Server Up</h1>`);
+	res.send(`<h1>SPRINT Up</h1>`);
 });
 
 server.use("/api/action", actionRoute);
