@@ -1,3 +1,32 @@
+# Self-Study/Essay Questions
+# Self-Study/Essay Questions
+# Self-Study/Essay Questions
+
+Demonstrate your understanding of this Sprint's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your Team Lead.
+
+- [ ] Mention two parts of Express that you learned about this week.
+
+Routes, Middleware
+
+
+- [ ] Describe Middleware?
+
+Middleware is functionality in the app that performs a specific separate function using the request and response for a route.
+
+- [ ] Describe a Resource?
+
+- [ ] What can the API return to help clients know if a request was successful?
+
+HTTP Status code `200 ok`
+
+- [ ] How can we partition our application into sub-applications?
+
+By dividing up the application according to the routes.
+
+# END Self-Study/Essay Questions
+# END Self-Study/Essay Questions
+# END Self-Study/Essay Questions
+
 # Sprint Challenge: Express and Node.js - Projects & Actions
 
 ## Description
@@ -34,19 +63,6 @@ Follow these steps for completing your project.
 
 Commit your code regularly and use descriptive messages. This helps both you (in case you ever need to return to old code) and your Team Lead.
 
-## Self-Study/Essay Questions
-
-Demonstrate your understanding of this Sprint's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your Team Lead.
-
-- [ ] Mention two parts of Express that you learned about this week.
-
-- [ ] Describe Middleware?
-
-- [ ] Describe a Resource?
-
-- [ ] What can the API return to help clients know if a request was successful?
-
-- [ ] How can we partition our application into sub-applications?
 
 ## Minimum Viable Product
 
